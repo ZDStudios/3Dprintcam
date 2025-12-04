@@ -9,51 +9,71 @@
       padding: 0;
       height: 100%;
       font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background: #111;
       color: #eee;
     }
-    #login, #stream {
+    #login {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+    }
+    #login h2 {
+      margin-bottom: 20px;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background: #444;
+      color: #fff;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #666;
+    }
+    #stream {
       width: 100%;
       height: 100%;
+      display: none;
     }
     iframe {
       border: none;
       width: 100%;
       height: 100%;
     }
-    .centered {
-      text-align: center;
-    }
-    input {
-      padding: 8px;
-      font-size: 16px;
-    }
-    button {
-      padding: 8px 12px;
-      font-size: 16px;
-      margin-left: 8px;
-      cursor: pointer;
+    #error {
+      margin-top: 15px;
+      color: red;
     }
   </style>
 </head>
 <body>
-  <div id="login" class="centered">
-    <h2>Enter Passcode to View Stream</h2>
-    <input type="password" id="passcode" placeholder="Passcode">
-    <button onclick="checkPasscode()">Submit</button>
-    <p id="error" style="color:red;"></p>
+  <div id="login">
+    <h2>Select Passcode to View Stream</h2>
+    <div class="buttons">
+      <button onclick="checkPasscode('1234')">1234</button>
+      <button onclick="checkPasscode('5678')">5678</button>
+      <button onclick="checkPasscode('8089')">8089</button>
+      <button onclick="checkPasscode('0000')">0000</button>
+    </div>
+    <p id="error"></p>
   </div>
 
-  <div id="stream" style="display:none;">
+  <div id="stream">
     <iframe src="https://cheryle-endurable-additively.ngrok-free.dev/?action=stream"></iframe>
   </div>
 
   <script>
-    function checkPasscode() {
-      const code = document.getElementById('passcode').value;
+    function checkPasscode(code) {
       if (code === "8089") {
         document.getElementById('login').style.display = "none";
         document.getElementById('stream').style.display = "block";
