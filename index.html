@@ -2,22 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Live Camera Stream</title>
+  <title>Protected Camera Stream</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      color: #eee;
+    }
+    #login, #stream {
+      width: 100%;
+      height: 100%;
     }
     iframe {
       border: none;
       width: 100%;
       height: 100%;
     }
+    .centered {
+      text-align: center;
+    }
+    input {
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      padding: 8px 12px;
+      font-size: 16px;
+      margin-left: 8px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <iframe src="https://cheryle-endurable-additively.ngrok-free.dev/?action=stream"></iframe>
+  <div id="login" class="centered">
+    <h2>Enter Passcode to View Stream</h2>
+    <input type="password" id="passcode" placeholder="Passcode">
+    <button onclick="checkPasscode()">Submit</button>
+    <p id="error" style="color:red;"></p>
+  </div>
+
+  <div id="stream" style="display:none;">
+    <iframe src="https://cheryle-endurable-additively.ngrok-free.dev/?action=stream"></iframe>
+  </div>
+
+  <script>
+    function checkPasscode() {
+      const code = document.getElementById('passcode').value;
+      if (code === "8089") {
+        document.getElementById('login').style.display = "none";
+        document.getElementById('stream').style.display = "block";
+      } else {
+        document.getElementById('error').textContent = "Incorrect passcode.";
+      }
+    }
+  </script>
 </body>
 </html>
